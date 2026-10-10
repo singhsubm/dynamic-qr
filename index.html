@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business QR Generator</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #f5f5f5;
+      }
+
+      .box {
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      #qrcode {
+        margin: 25px auto;
+        width: 256px;
+      }
+
+      button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background: #111;
+        color: white;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <h2>My Business QR</h2>
+
+      <div id="qrcode"></div>
+
+      <button onclick="downloadQR()">Download QR</button>
+    </div>
+
+    <script>
+      const qrURL = "https://dynamic-qr-chi.vercel.app/";
+
+      new QRCode(document.getElementById("qrcode"), {
+        text: qrURL,
+        width: 512,
+        height: 512,
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+
+      function downloadQR() {
+        const canvas = document.querySelector("#qrcode canvas");
+
+        const link = document.createElement("a");
+        link.download = "business-card-qr.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      }
+    </script>
+  </body>
+</html>
